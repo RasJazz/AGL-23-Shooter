@@ -65,7 +65,7 @@ sysinfo.txt
 crashlytics-build.properties
 
 # Packed Addressables
-Mini-Shooter Game/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/Mini-Shooter Game/*.bin*
+Mini-Shooter Game/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin* 
 
 # Temporary auto-generated Android Assets
 Mini-Shooter Game/[Aa]ssets/[Ss]treamingAssets/aa.meta
