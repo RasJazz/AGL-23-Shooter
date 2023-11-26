@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7697bdee03b4bcca19f1917fd58dc30, type: 3}
+  m_Name: Fireball 2
+  m_EditorClassIdentifier: 
+  spellName: Fireball
+  icon: {fileID: 0}
+  cooldownSecs: 10
+  projectile: {fileID: 8293633469438908687, guid: 699ba22cc70c2f641bcd9414f1cae1a7, type: 3}
+  scale: 2
