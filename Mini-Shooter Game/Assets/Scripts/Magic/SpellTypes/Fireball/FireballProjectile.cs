@@ -1,20 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class FireballProjectile : MonoBehaviour
+namespace Magic.SpellTypes.Fireball
 {
-
-    private float _timeAlive;
-    public FireballSpell FireballSpell { private get; set; }
-    
-    // Update is called once per frame
-    void Update()
+    public class FireballProjectile : MonoBehaviour
     {
-        _timeAlive += Time.deltaTime;
-        if (_timeAlive >= 5)
+
+        private float _timeAlive;
+        public FireballSpell FireballSpell { private get; set; }
+    
+        // Update is called once per frame
+        void Update()
         {
-            Destroy(gameObject);
+            _timeAlive += Time.deltaTime;
+            if (_timeAlive >= 5)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }
