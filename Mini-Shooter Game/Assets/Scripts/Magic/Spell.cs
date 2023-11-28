@@ -10,7 +10,7 @@ public abstract class Spell : ScriptableObject
     public Texture2D icon;
     [Header("Cooldown")]
     public float cooldownSecs;
-    public float CooldownSecsRemaining { get; protected set; }
+    public float CooldownSecsRemaining { get; private set; }
 
     public virtual void Cast(SpellCaster spellCaster)
     {
@@ -29,6 +29,11 @@ public abstract class Spell : ScriptableObject
     public bool IsReady()
     {
         return CooldownSecsRemaining == 0;
+    }
+
+    public float CooldownPercentRemaining()
+    {
+        return CooldownSecsRemaining / cooldownSecs;
     }
     
     public void UpdateCooldown()

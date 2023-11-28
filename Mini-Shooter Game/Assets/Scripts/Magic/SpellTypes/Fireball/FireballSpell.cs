@@ -14,7 +14,6 @@ public class FireballSpell : Spell
         Transform origin = spellCaster.transform;
         GameObject projectileObject = Instantiate(projectile, origin.position, origin.rotation);
         projectileObject.transform.localScale = new Vector3(scale, scale, scale);
-        FireballProjectile fireballProjectile = projectileObject.AddComponent<FireballProjectile>();
-        
+        projectileObject.AddComponent<FireballProjectile>();
     }
 }

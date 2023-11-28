@@ -11,13 +11,12 @@ public class DashSpell : Spell
 
     public override void Cast(SpellCaster spellCaster)
     {
-        Vector3 velocity = spellCaster.rigidbody.velocity;
+        Vector3 velocity = spellCaster.casterRigidbody.velocity;
         if (velocity.magnitude >= moveThreshold)
         {
             base.Cast(spellCaster);
-            velocity.y = 0;
             Vector3 moveDirection = velocity.normalized;
-            spellCaster.rigidbody.transform.Translate(moveDirection * power);
+            spellCaster.casterRigidbody.transform.Translate(moveDirection * power);
         }
 
     }

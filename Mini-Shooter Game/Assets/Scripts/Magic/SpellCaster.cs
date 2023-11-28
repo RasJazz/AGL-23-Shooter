@@ -9,16 +9,8 @@ public class SpellCaster : MonoBehaviour
     public SpellKeybind[] spells;
 
     public Transform spellOrigin;
-    public Transform orientation;
-    public Rigidbody rigidbody;
-    
-    private void Start()
-    {
-        // foreach (SpellKeybind spell in spells)
-        // {
-        //     spell.Spell.Cast(this);
-        // }
-    }
+    public Transform aimOrientation;
+    public Rigidbody casterRigidbody;
 
     private void Update()
     {
