@@ -12,8 +12,7 @@ namespace Magic.SpellTypes.Fireball
         public override void Cast(SpellCaster spellCaster)
         {
             base.Cast(spellCaster);
-            Transform origin = spellCaster.transform;
-            GameObject projectileObject = Instantiate(projectile, origin.position, origin.rotation);
+            GameObject projectileObject = Instantiate(projectile, spellCaster.spellOrigin.transform.position, spellCaster.aimOrientation.rotation);
             projectileObject.transform.localScale = new Vector3(scale, scale, scale);
             projectileObject.AddComponent<FireballProjectile>();
         }
