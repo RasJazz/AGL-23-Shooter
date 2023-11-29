@@ -7,14 +7,15 @@ namespace Magic.SpellTypes.Fireball
     {
         [Header("Fireball")]
         public GameObject projectile;
-        public float scale;
+        public float power;
     
         public override void Cast(SpellCaster spellCaster)
         {
             base.Cast(spellCaster);
             GameObject projectileObject = Instantiate(projectile, spellCaster.spellOrigin.transform.position, spellCaster.aimOrientation.rotation);
-            projectileObject.transform.localScale = new Vector3(scale, scale, scale);
-            projectileObject.AddComponent<FireballProjectile>();
+            projectileObject.transform.localScale = new Vector3(power, power, power);
+            FireballProjectile fireballProjectile = projectileObject.AddComponent<FireballProjectile>();
+            fireballProjectile.FireballSpell = this;
         }
     }
 }
