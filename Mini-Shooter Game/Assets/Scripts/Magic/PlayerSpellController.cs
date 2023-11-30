@@ -30,7 +30,7 @@ namespace Magic
                     }
                     catch (SpellOnCooldownException e)
                     {
-                        Debug.Log(e.Message);
+                        // handle if on cooldown
                     }
 
                 }

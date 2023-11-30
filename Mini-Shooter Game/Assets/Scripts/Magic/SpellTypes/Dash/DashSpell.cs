@@ -12,11 +12,17 @@ namespace Magic.SpellTypes.Dash
         public override void Cast(SpellCaster spellCaster)
         {
             Vector3 velocity = spellCaster.casterRigidbody.velocity;
-            if (velocity.magnitude >= moveThreshold)
+            Vector3 dashVelocity = new Vector3(velocity.x, 0, velocity.z);
+            
+            if (dashVelocity.magnitude >= moveThreshold)
             {
+                if (spellCaster.TryGetComponent(out PlayerMovement playerMovement) && !playerMovement.grounded) 
+                    return;
+                
                 base.Cast(spellCaster);
-                Vector3 moveDirection = velocity.normalized;
-                spellCaster.casterRigidbody.transform.Translate(moveDirection * power);
+                Vector3 moveDirection = dashVelocity.normalized;
+                
+                spellCaster.casterRigidbody.AddForce(moveDirection * (power * 10), ForceMode.Impulse);
             }
 
         }

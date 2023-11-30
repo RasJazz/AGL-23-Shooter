@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Ground Check")]
     public float playerHeight;
     public LayerMask whatIsGround;
-    bool grounded;
+    public bool grounded { get; private set; }
 
     public Transform orientation;
 
@@ -49,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
 
         MyInput();
-        SpeedControl();
+        // SpeedControl();
 
         // handle drag
         if (grounded)
@@ -83,14 +83,15 @@ public class PlayerMovement : MonoBehaviour
     {
         // calculate movement direction
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
-
+        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        
         // on ground
-        if(grounded)
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+        if(grounded && !(flatVel.magnitude > moveSpeed))
+            rb.AddForce(moveDirection.normalized * (moveSpeed * 10f), ForceMode.Force);
 
         // in air
-        else if(!grounded)
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+        else if(!grounded && !(flatVel.magnitude > moveSpeed))
+            rb.AddForce(moveDirection.normalized * (moveSpeed * 10f * airMultiplier), ForceMode.Force);
     }
 
     private void SpeedControl()
@@ -104,7 +105,7 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
         }
     }
-
+    
     private void Jump()
     {
         // reset y velocity
