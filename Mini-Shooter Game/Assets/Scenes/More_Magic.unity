@@ -920,6 +920,8 @@ MonoBehaviour:
     spell: {fileID: 11400000, guid: 15061708ad98847498d99b37f77a6488, type: 2}
   - keyCode: 304
     spell: {fileID: 11400000, guid: 002a063fa4ae63548b73b4e4995d0ae1, type: 2}
+  - keyCode: 101
+    spell: {fileID: 11400000, guid: 0fe92109138723a61b5877e72208f3b1, type: 2}
 --- !u!114 &759425030
 MonoBehaviour:
   m_ObjectHideFlags: 0
