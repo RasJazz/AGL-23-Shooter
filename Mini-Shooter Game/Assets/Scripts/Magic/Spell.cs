@@ -9,11 +9,11 @@ namespace Magic
     
         [Header("Spell Info")]
         public string spellName;
-        public Texture2D icon;
+        public Sprite icon;
         [Header("Cooldown")]
         public float cooldownSecs;
 
-        private Dictionary<SpellCaster, float> _allCooldownSecsRemaining = new();
+        private readonly Dictionary<SpellCaster, float> _allCooldownSecsRemaining = new();
 
         public virtual void Cast(SpellCaster spellCaster)
         {
@@ -36,12 +36,12 @@ namespace Magic
 
         public float CooldownSecsRemaining(SpellCaster spellCaster)
         {
-            return _allCooldownSecsRemaining[spellCaster];
+            return _allCooldownSecsRemaining.GetValueOrDefault(spellCaster, 0);
         }
         
         public float CooldownPercentRemaining(SpellCaster spellCaster)
         {
-            return _allCooldownSecsRemaining[spellCaster] / cooldownSecs;
+            return _allCooldownSecsRemaining.GetValueOrDefault(spellCaster, 0) / cooldownSecs;
         }
 
         public void UpdateCooldown(SpellCaster spellCaster)

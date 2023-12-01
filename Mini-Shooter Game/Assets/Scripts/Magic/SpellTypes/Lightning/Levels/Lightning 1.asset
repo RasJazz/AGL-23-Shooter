@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Lightning 1
   m_EditorClassIdentifier: 
   spellName: Lightning
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 55b4b260ad5da4d18bd86ffea94b3bbd, type: 3}
   cooldownSecs: 1
   lightningSegment: {fileID: 131627979649271939, guid: 59d2263615181e565994ff1228ffdcb4, type: 3}
   damage: 5

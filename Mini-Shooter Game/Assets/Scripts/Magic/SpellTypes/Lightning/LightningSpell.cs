@@ -49,7 +49,7 @@ namespace Magic.SpellTypes.Lightning
                 LightningPoints(from, to);
                 Debug.DrawLine(from, to, Color.red, 500);
             }
-        }
+        }    
 
         private void LightningPoints(Vector3 point1, Vector3 point2)
         {
