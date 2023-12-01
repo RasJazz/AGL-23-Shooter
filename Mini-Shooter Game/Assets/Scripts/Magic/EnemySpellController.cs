@@ -9,8 +9,11 @@ namespace Magic
     [RequireComponent(typeof(SpellCaster))]
     public class EnemySpellController : MonoBehaviour
     {
-        public SpellChance[] spells;
+        public Spell spell;
         private SpellCaster _spellCaster;
+        public Transform target;
+        public float aimSpread = 0.5f;
+        public bool isActive = true;
 
         private void Start()
         {
@@ -19,25 +22,34 @@ namespace Magic
 
         private void Update()
         {
-            float totalWeights = spells.Aggregate(0.0f, (acc, current) => acc + current.weight);
-            float randomWeight = Random.Range(0.0f, totalWeights);
-            foreach (SpellChance spellChance in spells)
+            if (isActive)
             {
-                float weight = spellChance.weight;
-                Spell spell = spellChance.spell;
-                spell.UpdateCooldown();
-                if (randomWeight > weight) continue;
+                RotateOrientationTowardsPlayer();
                 
+                spell.UpdateCooldown(_spellCaster);
+
                 try
                 {
                     spell.Cast(_spellCaster);
                 }
                 catch (SpellOnCooldownException e)
                 {
-                    Debug.Log(e.Message);
+                    // handle if on cooldown
                 }
-                return;
             }
+        }
+
+        private void RotateOrientationTowardsPlayer()
+        {
+            _spellCaster.aimOrientation.rotation = Quaternion.FromToRotation(Vector3.forward,
+                target.position - _spellCaster.spellOrigin.position);
+
+            float xSpread = Random.Range(-aimSpread, aimSpread);
+            float ySpread = Random.Range(-aimSpread, aimSpread);
+            Vector3 spreadVec = new Vector3(xSpread, ySpread);
+            
+            _spellCaster.aimOrientation.Rotate(spreadVec);
+
         }
     }
 }

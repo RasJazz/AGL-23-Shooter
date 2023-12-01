@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Magic.SpellTypes.Fireball
 {
@@ -7,13 +9,17 @@ namespace Magic.SpellTypes.Fireball
     {
         [Header("Fireball")]
         public GameObject projectile;
-        public float power;
+        [FormerlySerializedAs("power")] public float speed;
+        public String[] ignoreTags;
+        public float damage;
+        public float scale;
     
         public override void Cast(SpellCaster spellCaster)
         {
             base.Cast(spellCaster);
-            GameObject projectileObject = Instantiate(projectile, spellCaster.spellOrigin.transform.position, spellCaster.aimOrientation.rotation);
-            projectileObject.transform.localScale = new Vector3(power, power, power);
+            spellCaster.OrientationOrRaycast(out Vector3 position, out Quaternion rotation);
+            GameObject projectileObject = Instantiate(projectile, position, rotation);
+            projectileObject.transform.localScale = new Vector3(scale, scale, scale);
             FireballProjectile fireballProjectile = projectileObject.AddComponent<FireballProjectile>();
             fireballProjectile.FireballSpell = this;
         }

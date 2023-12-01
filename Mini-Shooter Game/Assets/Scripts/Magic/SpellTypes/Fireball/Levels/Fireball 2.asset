@@ -14,6 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spellName: Fireball
   icon: {fileID: 2800000, guid: 119fd63e142dcdd4a961e92240e480d5, type: 3}
-  cooldownSecs: 10
+  cooldownSecs: 6
   projectile: {fileID: 6617666341061732476, guid: 281f3c588ab5d7dde8dcbee4a0cc318f, type: 3}
-  power: 2
+  speed: 2.5
+  ignoreTags:
+  - Player
+  - Projectile
+  damage: 10
+  scale: 1

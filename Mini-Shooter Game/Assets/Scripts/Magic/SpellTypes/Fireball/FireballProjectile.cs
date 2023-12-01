@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 
 namespace Magic.SpellTypes.Fireball
@@ -16,11 +17,11 @@ namespace Magic.SpellTypes.Fireball
             Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
             projectileRb.useGravity = false;
             projectileRb.velocity = Vector3.zero;
-            projectileRb.AddRelativeForce(Vector3.forward * FireballSpell.power * 10, ForceMode.VelocityChange);
+            projectileRb.AddRelativeForce(Vector3.forward * FireballSpell.speed * 10, ForceMode.VelocityChange);
         }
 
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
             _timeAlive += Time.deltaTime;
             if (_timeAlive >= 5)
@@ -31,10 +32,12 @@ namespace Magic.SpellTypes.Fireball
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.name != "PlayerObj") // TODO: change from using object name
+            if (FireballSpell.ignoreTags.Any(other.CompareTag))
             {
-                Destroy(gameObject);
+                return;
             }
+
+            Destroy(gameObject);
         }
     }
 }
