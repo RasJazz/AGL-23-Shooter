@@ -17,5 +17,7 @@ MonoBehaviour:
   cooldownSecs: 2
   projectile: {fileID: 6617666341061732476, guid: 281f3c588ab5d7dde8dcbee4a0cc318f, type: 3}
   speed: 5
+  ignoreTags:
+  - Player
   damage: 5
   scale: 0.5

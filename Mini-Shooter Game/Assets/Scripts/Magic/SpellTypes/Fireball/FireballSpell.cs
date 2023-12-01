@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace Magic.SpellTypes.Fireball
@@ -9,6 +10,7 @@ namespace Magic.SpellTypes.Fireball
         [Header("Fireball")]
         public GameObject projectile;
         [FormerlySerializedAs("power")] public float speed;
+        public String[] ignoreTags;
         public float damage;
         public float scale;
     

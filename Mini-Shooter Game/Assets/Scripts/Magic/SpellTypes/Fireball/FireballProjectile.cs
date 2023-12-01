@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 
 namespace Magic.SpellTypes.Fireball
@@ -20,7 +21,7 @@ namespace Magic.SpellTypes.Fireball
         }
 
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
             _timeAlive += Time.deltaTime;
             if (_timeAlive >= 5)
@@ -31,8 +32,11 @@ namespace Magic.SpellTypes.Fireball
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.name == "PlayerObj") return; // TODO: change from using object name
-            
+            if (FireballSpell.ignoreTags.Any(other.CompareTag))
+            {
+                return;
+            }
+
             Destroy(gameObject);
         }
     }

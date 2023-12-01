@@ -1381,7 +1381,7 @@ GameObject:
   - component: {fileID: 827794272}
   m_Layer: 0
   m_Name: Enemy (2)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1536,7 +1536,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!114 &827794273
 MonoBehaviour:
@@ -1552,7 +1552,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spells:
   - weight: 1
-    spell: {fileID: 11400000, guid: 15061708ad98847498d99b37f77a6488, type: 2}
+    spell: {fileID: 11400000, guid: e4533e92f287e5743aa688d882913b33, type: 2}
 --- !u!114 &827794274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2283,7 +2283,7 @@ GameObject:
   - component: {fileID: 1140147006}
   m_Layer: 0
   m_Name: PlayerObj
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
