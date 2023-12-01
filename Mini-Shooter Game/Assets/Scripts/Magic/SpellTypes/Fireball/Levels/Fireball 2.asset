@@ -19,5 +19,6 @@ MonoBehaviour:
   speed: 2.5
   ignoreTags:
   - Player
+  - Projectile
   damage: 10
   scale: 1

@@ -9,8 +9,7 @@ namespace Magic.SpellTypes.Lightning
     [CreateAssetMenu(fileName = "New Lightning", menuName = "Lightning")]
     public class LightningSpell : Spell
     {
-        [Header("Lightning")] 
-        public GameObject lightningSegment;
+        [Header("Lightning")] public GameObject lightningSegment;
         public float damage;
         public float range;
         public float lifetime = 0.5f;
@@ -18,21 +17,30 @@ namespace Magic.SpellTypes.Lightning
         public override void Cast(SpellCaster spellCaster)
         {
             base.Cast(spellCaster);
-            HashSet<Melee> hitEnemies = new HashSet<Melee>();
+            HashSet<GameObject> hitEnemies = new HashSet<GameObject>();
             StrikeClosest(spellCaster.spellOrigin, hitEnemies);
         }
 
-        private void StrikeClosest(Transform transform, HashSet<Melee> hitEnemies)
+        private void StrikeClosest(Transform transform, HashSet<GameObject> hitEnemies)
         {
             Collider[] hitColliders = Physics.OverlapSphere(transform.position, range);
             var distanceOrder = hitColliders.OrderBy(obj => (obj.transform.position - transform.position).sqrMagnitude);
             foreach (Collider collider in distanceOrder)
             {
-                if (!collider.TryGetComponent(out Melee enemyBase) || !hitEnemies.Add(enemyBase)) continue;
+                Transform enemyTransform;
+                if (collider.TryGetComponent(out Melee melee) && hitEnemies.Add(melee.gameObject))
+                {
+                    enemyTransform = melee.transform;
+                }
+                else if (collider.TryGetComponent(out Caster caster) && hitEnemies.Add(caster.gameObject))
+                {
+                    enemyTransform = caster.transform;
+                }
+                else continue;
 
-                StrikeClosest(enemyBase.transform, hitEnemies);
+                StrikeClosest(enemyTransform, hitEnemies);
                 Vector3 from = transform.position;
-                Vector3 to = enemyBase.transform.position;
+                Vector3 to = enemyTransform.position;
                 LightningPoints(from, to);
                 Debug.DrawLine(from, to, Color.red, 500);
             }

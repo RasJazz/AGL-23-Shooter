@@ -1,10 +1,13 @@
+using Magic;
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(EnemySpellController))]
 public class Caster : EnemyBase
 {
     [SerializeField] public float backUpDistance;
     private NavMeshAgent _casterAI;
+    private EnemySpellController _spellController;
     public LayerMask isGround;
     private float _casterHeight;
     private bool _grounded;
@@ -14,6 +17,7 @@ public class Caster : EnemyBase
     protected override void EnemyAI()
     {
         _casterAI = GetComponent<NavMeshAgent>();
+        _spellController = GetComponent<EnemySpellController>();
     }
     void Start()
     {
@@ -38,6 +42,7 @@ public class Caster : EnemyBase
         
         if (distanceToTarget <= chaseRange)
         {
+            _spellController.isActive = true;
             if (distanceToTarget >= backUpDistance)
             {
                 _casterAI.SetDestination(target.position);
@@ -57,6 +62,7 @@ public class Caster : EnemyBase
         }
         else
         {
+            _spellController.isActive = false;
             chaseRange = initialChaseRange;
         }
         
