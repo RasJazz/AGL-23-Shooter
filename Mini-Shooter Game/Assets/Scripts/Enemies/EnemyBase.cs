@@ -39,12 +39,7 @@ public class EnemyBase : MonoBehaviour
         
         if (health <= 0) // if enemy is dead, destroy object
         {
-            Debug.Log("Enemy is Dead! Health: " + health);
             Destroy(gameObject);
-        }
-        else
-        {
-            Debug.Log("Hit enemy! Health: " + health);
         }
     }
 }

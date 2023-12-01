@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using UnityEngine;
 
@@ -58,7 +57,7 @@ namespace Magic.SpellTypes.Fireball
                 if (playerMovement != null)
                 {
                     playerMovement.playerHealth -= FireballSpell.damage;
-                    playerMovement.TakeDamageFromEnemy(playerMovement.playerHealth);
+                    playerMovement.TakeDamageFromEnemy();
                 }
                 return;
             }

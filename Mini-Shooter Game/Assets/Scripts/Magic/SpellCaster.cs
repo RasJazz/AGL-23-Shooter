@@ -1,5 +1,4 @@
-﻿using Unity.VisualScripting;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Magic
 {
@@ -19,8 +18,6 @@ namespace Magic
             {
                 position = spellOrigin.position;
                 rotation = Quaternion.FromToRotation(Vector3.forward, hit.point - position);
-                
-                Debug.Log("I hit this thing! " + hit.transform.name); // To test hits to player and enemies
                 
                 return;
             }
