@@ -36,6 +36,18 @@ namespace Magic.SpellTypes.Fireball
             {
                 return;
             }
+            
+            if (other.TryGetComponent(out Melee melee))
+            {
+                // Hit a melee enemy
+                melee.health -= FireballSpell.damage;
+            }
+            else if (other.TryGetComponent(out Caster caster))
+            {
+                // Hit a caster enemy
+                caster.health -= FireballSpell.damage;
+            }
+            
 
             Destroy(gameObject);
         }

@@ -30,14 +30,17 @@ namespace Magic.SpellTypes.Lightning
                 Transform enemyTransform;
                 if (collider.TryGetComponent(out Melee melee) && hitEnemies.Add(melee.gameObject))
                 {
+                    // Hit a melee enemy
                     enemyTransform = melee.transform;
                 }
                 else if (collider.TryGetComponent(out Caster caster) && hitEnemies.Add(caster.gameObject))
                 {
+                    // Hit a caster enemy
                     enemyTransform = caster.transform;
                 }
                 else continue;
 
+                // Runs when hit any enemy, caster or melee
                 StrikeClosest(enemyTransform, hitEnemies);
                 Vector3 from = transform.position;
                 Vector3 to = enemyTransform.position;
