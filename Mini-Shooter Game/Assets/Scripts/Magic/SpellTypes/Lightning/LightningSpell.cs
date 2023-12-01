@@ -32,11 +32,13 @@ namespace Magic.SpellTypes.Lightning
                 {
                     // Hit a melee enemy
                     enemyTransform = melee.transform;
+                    melee.health -= damage;
                 }
                 else if (collider.TryGetComponent(out Caster caster) && hitEnemies.Add(caster.gameObject))
                 {
                     // Hit a caster enemy
                     enemyTransform = caster.transform;
+                    caster.health -= damage;
                 }
                 else continue;
 
