@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dash 1
   m_EditorClassIdentifier: 
   spellName: Dash
-  icon: {fileID: 2800000, guid: 26a3378b301983f4f8654a8008586149, type: 3}
+  icon: {fileID: 21300000, guid: 26a3378b301983f4f8654a8008586149, type: 3}
   cooldownSecs: 2.5
   power: 5
   moveThreshold: 0.5
