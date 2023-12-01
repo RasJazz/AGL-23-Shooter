@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Magic
@@ -11,37 +12,46 @@ namespace Magic
         public Texture2D icon;
         [Header("Cooldown")]
         public float cooldownSecs;
-        public float CooldownSecsRemaining { get; private set; }
+
+        private Dictionary<SpellCaster, float> _allCooldownSecsRemaining = new();
 
         public virtual void Cast(SpellCaster spellCaster)
         {
-            if (!IsReady())
+            if (!IsReady(spellCaster))
             {
-                throw new SpellOnCooldownException(this);
+                throw new SpellOnCooldownException(spellCaster, this);
             }
-            TriggerCooldown();
+            TriggerCooldown(spellCaster);
         }
 
-        public void TriggerCooldown()
+        public void TriggerCooldown(SpellCaster spellCaster)
         {
-            CooldownSecsRemaining = cooldownSecs;
+            _allCooldownSecsRemaining[spellCaster] = cooldownSecs;
         }
 
-        public bool IsReady()
+        public bool IsReady(SpellCaster spellCaster)
         {
-            return CooldownSecsRemaining == 0;
+            return _allCooldownSecsRemaining.GetValueOrDefault(spellCaster, 0) == 0;
         }
 
-        public float CooldownPercentRemaining()
+        public float CooldownSecsRemaining(SpellCaster spellCaster)
         {
-            return CooldownSecsRemaining / cooldownSecs;
+            return _allCooldownSecsRemaining[spellCaster];
         }
-    
-        public void UpdateCooldown()
+        
+        public float CooldownPercentRemaining(SpellCaster spellCaster)
         {
+            return _allCooldownSecsRemaining[spellCaster] / cooldownSecs;
+        }
+
+        public void UpdateCooldown(SpellCaster spellCaster)
+        {
+            if (IsReady(spellCaster)) 
+                return;
+
             float time = Time.deltaTime;
-            CooldownSecsRemaining = Math.Max(0, CooldownSecsRemaining - time);
+            _allCooldownSecsRemaining[spellCaster] = Math.Max(0, _allCooldownSecsRemaining.GetValueOrDefault(spellCaster, 0) - time);
         }
-    
+
     }
 }

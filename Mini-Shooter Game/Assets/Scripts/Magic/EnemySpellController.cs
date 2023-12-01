@@ -25,7 +25,7 @@ namespace Magic
             {
                 float weight = spellChance.weight;
                 Spell spell = spellChance.spell;
-                spell.UpdateCooldown();
+                spell.UpdateCooldown(_spellCaster);
                 if (randomWeight > weight) continue;
                 
                 try

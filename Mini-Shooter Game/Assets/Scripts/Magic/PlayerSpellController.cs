@@ -21,7 +21,7 @@ namespace Magic
             {
                 KeyCode keyCode = spellKeybind.keyCode;
                 Spell spell = spellKeybind.spell;
-                spell.UpdateCooldown();
+                spell.UpdateCooldown(_spellCaster);
                 if (Input.GetKey(keyCode))
                 {
                     try
