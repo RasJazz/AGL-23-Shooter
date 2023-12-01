@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
 
+    public float volume = 1f;
+
     [Header("Ground Check")]
     public float playerHeight;
     public LayerMask whatIsGround;
@@ -34,6 +37,10 @@ public class PlayerMovement : MonoBehaviour
     Vector3 moveDirection;
 
     Rigidbody rb;
+
+    [SerializeField] private AudioClip walkingSFX;
+    [SerializeField] private AudioClip walkingSFX2;
+    private bool Footstep1IsNext = true;
 
     private void Start()
     {
@@ -67,7 +74,22 @@ public class PlayerMovement : MonoBehaviour
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
-
+        
+        // Quit Key function
+        if (Input.GetKey(KeyCode.Q))
+        {
+            Debug.Log("Quit Game");
+            // if player presses Q, quit game
+            Application.Quit();
+        }
+        
+        // SFX for movement
+        if (Mathf.Abs(horizontalInput) > 0.01f || Mathf.Abs(verticalInput) > 0.01F)
+        {
+            Invoke("PlayClip", .5f);
+            
+        }
+        
         // when to jump
         if(Input.GetKey(jumpKey) && readyToJump && grounded)
         {
@@ -116,5 +138,21 @@ public class PlayerMovement : MonoBehaviour
     private void ResetJump()
     {
         readyToJump = true;
+    }
+
+    void PlayClip()
+    {
+        if (Footstep1IsNext)
+        {
+            // play walking SFX
+            AudioSource.PlayClipAtPoint(walkingSFX, transform.position, volume);
+            Footstep1IsNext = !Footstep1IsNext;
+        }
+        else
+        {
+            // play walking SFX
+            AudioSource.PlayClipAtPoint(walkingSFX2, transform.position, volume);
+            Footstep1IsNext = !Footstep1IsNext;
+        }
     }
 }
