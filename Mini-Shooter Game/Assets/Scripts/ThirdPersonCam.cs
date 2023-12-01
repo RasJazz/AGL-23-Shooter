@@ -19,6 +19,7 @@ public class ThirdPersonCam : MonoBehaviour
     public GameObject topDownCam;
 
     public CameraStyle currentStyle;
+    
     public enum CameraStyle
     {
         Basic,

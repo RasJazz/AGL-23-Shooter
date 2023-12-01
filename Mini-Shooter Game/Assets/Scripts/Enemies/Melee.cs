@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Melee : EnemyBase
@@ -9,7 +6,8 @@ public class Melee : EnemyBase
     {
         EnemyAI();
         chaseRange = initialChaseRange;
-        health = 20.0f;
+        health = 30.0f;
+        name = "Melee";
     }
     
     void Update()
@@ -27,6 +25,5 @@ public class Melee : EnemyBase
             chaseRange = initialChaseRange;
         }
     }
-    
 
 }

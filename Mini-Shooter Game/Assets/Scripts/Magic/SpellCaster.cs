@@ -6,6 +6,7 @@ namespace Magic
     public class SpellCaster : MonoBehaviour
     {
 
+
         public Transform spellOrigin;
 
         public Transform aimOrientation;
@@ -18,12 +19,14 @@ namespace Magic
             {
                 position = spellOrigin.position;
                 rotation = Quaternion.FromToRotation(Vector3.forward, hit.point - position);
+                
+                Debug.Log("I hit this thing! " + hit.transform.name); // To test hits to player and enemies
+                
                 return;
             }
             
             position = spellOrigin.position;
             rotation = aimOrientation.rotation;
         }
-        
     }
 }

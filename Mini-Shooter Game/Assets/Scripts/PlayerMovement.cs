@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
 
     [HideInInspector] public float walkSpeed;
     [HideInInspector] public float sprintSpeed;
+    [SerializeField] public float playerHealth;
 
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
@@ -41,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
         rb.freezeRotation = true;
 
         readyToJump = true;
+        playerHealth = 20.0f;
     }
 
     private void Update()
@@ -116,5 +118,13 @@ public class PlayerMovement : MonoBehaviour
     private void ResetJump()
     {
         readyToJump = true;
+    }
+    
+    public void TakeDamageFromEnemy(float damage)
+    {
+        if (playerHealth <= 0)
+        {
+            Debug.Log("Ich bin sehr Tot!");
+        }
     }
 }

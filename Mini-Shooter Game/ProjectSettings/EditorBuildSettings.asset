@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes: 
+  - enabled: 1
+    path: Assets/Scenes/More_Magic.unity
+    guid: 175cca594a1b1a4deb4b78f2488ba0b3
   m_configObjects: {}
