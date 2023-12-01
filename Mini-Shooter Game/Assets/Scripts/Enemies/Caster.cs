@@ -20,8 +20,6 @@ public class Caster : EnemyBase
         EnemyAI();
         //casterColl = GetComponent<Collider>();
         chaseRange = initialChaseRange;
-        health = 15.0f;
-        backUpDistance = 3.0f;
 
         _casterHeight = 2.0f;
         _grounded = false;
@@ -29,24 +27,37 @@ public class Caster : EnemyBase
     
     void Update()
     {
-        _grounded = Physics.Raycast(transform.position, Vector3.down, _casterHeight + 0.3f, isGround);
-        distanceToTarget = Vector3.Distance(target.position, transform.position);
+        Vector3 casterPos = transform.position;
+        
+        _grounded = Physics.Raycast(casterPos, Vector3.down, _casterHeight + 0.3f, isGround);
+        
+        Vector3 targetPos = target.position;
+        Vector3 flatTargetPos = new Vector3(targetPos.x, casterPos.y, targetPos.z);
+        
+        distanceToTarget = Vector3.Distance(flatTargetPos, casterPos);
         
         if (distanceToTarget <= chaseRange)
         {
-            _casterAI.SetDestination(target.position);
-            _casterAI.stoppingDistance = 15.0f; // Stops enemy short of player; casters only
-            
-            chaseRange = leashRange;
+            if (distanceToTarget >= backUpDistance)
+            {
+                _casterAI.SetDestination(target.position);
+                _casterAI.stoppingDistance = backUpDistance; // Stops enemy short of player; casters only
+                
+                chaseRange = leashRange;
+            }
+            else
+            {
+                Vector3 targetToCaster = casterPos - flatTargetPos;
+                Debug.DrawLine(flatTargetPos, casterPos, Color.red);
+                Vector3 backupPos = (targetToCaster.normalized * 10) + flatTargetPos;
+                Debug.DrawLine(casterPos, backupPos, Color.green);
+                _casterAI.SetDestination(backupPos);
+                _casterAI.stoppingDistance = 0;
+            }
         }
         else
         {
             chaseRange = initialChaseRange;
-        }
-
-        if (distanceToTarget <= backUpDistance)
-        {
-            enemyAINavMeshAgent.Move(transform.position);
         }
         
         DestroyEnemy(casterColl, _grounded);

@@ -1498,7 +1498,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1131659617}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.040920626, y: 0.18894325, z: 0.007880592, w: 0.9811034}
+  m_LocalRotation: {x: -0.04092061, y: 0.18894325, z: 0.00788059, w: 0.9811034}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1969,7 +1969,7 @@ GameObject:
   - component: {fileID: 1270168393}
   - component: {fileID: 1270168392}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: Flying
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2075,15 +2075,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b6408b68f1e17848a91443b3c3ce3f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  initialChaseRange: 15
-  leashRange: 20
+  target: {fileID: 1417983516}
+  initialChaseRange: 30
+  leashRange: 40
   health: 10
-  backUpDistance: 0
+  backUpDistance: 10
   isGround:
     serializedVersion: 2
     m_Bits: 8
-  casterColl: {fileID: 0}
+  casterColl: {fileID: 1270168389}
 --- !u!54 &1270168393
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2109,7 +2109,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!195 &1270168394
 NavMeshAgent:
@@ -2120,7 +2120,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1270168387}
   m_Enabled: 1
   m_AgentTypeID: -334000983
-  m_Radius: 0.5
+  m_Radius: 5
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
