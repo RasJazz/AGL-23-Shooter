@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Melee : EnemyBase
@@ -7,15 +8,25 @@ public class Melee : EnemyBase
     void Start()
     {
         EnemyAI();
-        health = 10.0f;
+        chaseRange = initialChaseRange;
+        health = 20.0f;
     }
     
     void Update()
     {
         distanceToTarget = Vector3.Distance(target.position, transform.position);
+        
+        // If player is w/i x units of enemy, enemy engages player
         if (distanceToTarget <= chaseRange)
         {
-            testAgent.SetDestination(target.position);
+            enemyAINavMeshAgent.SetDestination(target.position);
+            chaseRange = leashRange;
+        }
+        else // when player out of range of enemy, its chaseRange is reset
+        {
+            chaseRange = initialChaseRange;
         }
     }
+    
+
 }

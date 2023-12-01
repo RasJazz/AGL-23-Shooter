@@ -8,33 +8,39 @@ using UnityEngine.AI;
 
 public class EnemyBase : MonoBehaviour
 {
-    protected NavMeshAgent testAgent; // variable for accessing NavMeshAgent AI features
-    protected float distanceToTarget = Mathf.Infinity; 
+    protected NavMeshAgent enemyAINavMeshAgent; // variable for accessing NavMeshAgent AI features
+    protected float distanceToTarget = Mathf.Infinity;
     
-    [SerializeField] public Transform target; // player
-    [SerializeField] public float chaseRange; // Sets distance that enemy will follow player
+    [SerializeField] public Transform target; // player 
+    [SerializeField] public float initialChaseRange;// Sets distance that enemy will follow player
+    protected float chaseRange; // temp variable to hold initChaseRange, resets when player leashes enemy
+    [SerializeField] public float leashRange; // distance enemy will aggro player until player escapes
     [SerializeField] public float health;
     
     protected EnemyBase()
     {
+        
+        initialChaseRange = 15.0f;
         chaseRange = 0.0f;
+        leashRange = 20.0f;
         health = 0.0f;
     }
     
-    protected EnemyBase(float chaseRange, float health)
+    protected EnemyBase(float chaseRange, float leashRange, float health)
     {
         this.chaseRange = chaseRange;
+        this.leashRange = leashRange;
         this.health = health;
     }
 
-    protected void EnemyAI()
+    protected virtual void EnemyAI()
     {
-        testAgent = GetComponent<NavMeshAgent>();
+        enemyAINavMeshAgent = GetComponent<NavMeshAgent>();
     }
-
-    void Update()
+    
+    protected void OnDrawGizmosSelected()
     {
-        
-        // testAgent.autoBraking = true; DIDN'T DO ANYTHING NOTICEABLE
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, chaseRange);
     }
 }
