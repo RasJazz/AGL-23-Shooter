@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Melee : EnemyBase
@@ -9,7 +6,8 @@ public class Melee : EnemyBase
     {
         EnemyAI();
         chaseRange = initialChaseRange;
-        health = 20.0f;
+        health = 30.0f;
+        name = "Melee";
     }
     
     void Update()
@@ -21,12 +19,26 @@ public class Melee : EnemyBase
         {
             enemyAINavMeshAgent.SetDestination(target.position);
             chaseRange = leashRange;
+            
+            
         }
         else // when player out of range of enemy, its chaseRange is reset
         {
             chaseRange = initialChaseRange;
         }
     }
-    
 
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            PlayerMovement player = other.gameObject.GetComponent<PlayerMovement>();
+
+            if (player != null)
+            {
+                player.playerHealth -= 3;
+                player.TakeDamageFromEnemy();
+            }
+        }
+    }
 }

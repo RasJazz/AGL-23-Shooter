@@ -1,10 +1,10 @@
-﻿using Unity.VisualScripting;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Magic
 {
     public class SpellCaster : MonoBehaviour
     {
+
 
         public Transform spellOrigin;
 
@@ -18,12 +18,12 @@ namespace Magic
             {
                 position = spellOrigin.position;
                 rotation = Quaternion.FromToRotation(Vector3.forward, hit.point - position);
+                
                 return;
             }
             
             position = spellOrigin.position;
             rotation = aimOrientation.rotation;
         }
-        
     }
 }

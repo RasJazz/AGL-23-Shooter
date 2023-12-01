@@ -8,11 +8,8 @@ public class Caster : EnemyBase
     [SerializeField] public float backUpDistance;
     private NavMeshAgent _casterAI;
     private EnemySpellController _spellController;
-    public LayerMask isGround;
-    private float _casterHeight;
-    private bool _grounded;
 
-    public Collider casterColl;
+    [SerializeField] public GameObject casterEnemy;
     
     protected override void EnemyAI()
     {
@@ -22,19 +19,14 @@ public class Caster : EnemyBase
     void Start()
     {
         EnemyAI();
-        //casterColl = GetComponent<Collider>();
+        health = 25.0f;
         chaseRange = initialChaseRange;
-
-        _casterHeight = 2.0f;
-        _grounded = false;
+        name = "Caster";
     }
     
     void Update()
     {
         Vector3 casterPos = transform.position;
-        
-        _grounded = Physics.Raycast(casterPos, Vector3.down, _casterHeight + 0.3f, isGround);
-        
         Vector3 targetPos = target.position;
         Vector3 flatTargetPos = new Vector3(targetPos.x, casterPos.y, targetPos.z);
         
@@ -42,7 +34,7 @@ public class Caster : EnemyBase
         
         if (distanceToTarget <= chaseRange)
         {
-            _spellController.isActive = true;
+            _spellController.isActive = true; // spells are turned on
             if (distanceToTarget >= backUpDistance)
             {
                 _casterAI.SetDestination(target.position);
@@ -62,23 +54,8 @@ public class Caster : EnemyBase
         }
         else
         {
-            _spellController.isActive = false;
+            _spellController.isActive = false; // spells stop firing and chase range is reset to init
             chaseRange = initialChaseRange;
-        }
-        
-        DestroyEnemy(casterColl, _grounded);
-        
-    }
-    
-    private void DestroyEnemy(Collider deadCaster, bool ground)
-    {
-        if (health == 0 && deadCaster.attachedRigidbody)
-        {
-            deadCaster.attachedRigidbody.useGravity = true;
-            if (ground)
-            {
-                Destroy(_casterAI);
-            }
         }
     }
 }
