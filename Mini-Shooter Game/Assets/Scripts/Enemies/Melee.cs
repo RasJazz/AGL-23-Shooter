@@ -19,6 +19,8 @@ public class Melee : EnemyBase
         {
             enemyAINavMeshAgent.SetDestination(target.position);
             chaseRange = leashRange;
+            
+            
         }
         else // when player out of range of enemy, its chaseRange is reset
         {
@@ -26,4 +28,17 @@ public class Melee : EnemyBase
         }
     }
 
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            PlayerMovement player = other.gameObject.GetComponent<PlayerMovement>();
+
+            if (player != null)
+            {
+                player.playerHealth -= 3;
+                player.TakeDamageFromEnemy();
+            }
+        }
+    }
 }
