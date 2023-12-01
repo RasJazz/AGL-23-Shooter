@@ -47,6 +47,11 @@ namespace Magic.SpellTypes.Fireball
                 // Hit a caster enemy
                 caster.health -= FireballSpell.damage;
             }
+            else if (other.TryGetComponent(out PlayerMovement playerMovement)) // or whatever other component we use for player health
+            {
+                // Hit a player
+                
+            }
             
 
             Destroy(gameObject);
