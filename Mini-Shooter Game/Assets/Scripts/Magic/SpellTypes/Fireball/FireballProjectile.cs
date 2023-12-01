@@ -39,17 +39,17 @@ namespace Magic.SpellTypes.Fireball
             
             if (other.TryGetComponent(out Melee melee))
             {
-                // Hit a melee enemy
+                // Spell hit a melee enemy
                 melee.health -= FireballSpell.damage;
             }
             else if (other.TryGetComponent(out Caster caster))
             {
-                // Hit a caster enemy
+                // Spell hit a caster enemy
                 caster.health -= FireballSpell.damage;
             }
             else if (other.TryGetComponent(out PlayerMovement playerMovement)) // or whatever other component we use for player health
             {
-                // Hit a player
+                // Spell hit a player
                 
             }
             
