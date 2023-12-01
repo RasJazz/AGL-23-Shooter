@@ -1,8 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Magic;
-using Magic.SpellTypes.Fireball;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,14 +11,15 @@ public class EnemyBase : MonoBehaviour
     protected float chaseRange; // temp variable to hold initChaseRange, resets when player leashes enemy
     [SerializeField] public float leashRange; // distance enemy will aggro player until player escapes
     [SerializeField] public float health;
+    protected string enemyName;
     
     protected EnemyBase()
     {
-        
         initialChaseRange = 15.0f;
         chaseRange = 0.0f;
         leashRange = 20.0f;
         health = 0.0f;
+        enemyName = "noName";
     }
     
     protected EnemyBase(float chaseRange, float leashRange, float health)
@@ -37,10 +33,13 @@ public class EnemyBase : MonoBehaviour
     {
         enemyAINavMeshAgent = GetComponent<NavMeshAgent>();
     }
-    
-    protected void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, chaseRange);
+    [HideInInspector] public void TakeDamage(float health)
+    { 
+        // decreases health by damage amount
+        
+        if (health <= 0) // if enemy is dead, destroy object
+        {
+            Destroy(gameObject);
+        }
     }
 }

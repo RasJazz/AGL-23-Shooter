@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using UnityEngine;
 
@@ -41,19 +40,28 @@ namespace Magic.SpellTypes.Fireball
             {
                 // Spell hit a melee enemy
                 melee.health -= FireballSpell.damage;
+                melee.TakeDamage(melee.health);
             }
             else if (other.TryGetComponent(out Caster caster))
             {
                 // Spell hit a caster enemy
                 caster.health -= FireballSpell.damage;
-            }
-            else if (other.TryGetComponent(out PlayerMovement playerMovement)) // or whatever other component we use for player health
-            {
-                // Spell hit a player
-                
+                caster.TakeDamage(caster.health);
             }
             
-
+            // logic for Player being hit
+            if (other.CompareTag("Player"))
+            {
+                // Handle player collision
+                PlayerMovement playerMovement = other.GetComponentInParent<PlayerMovement>();
+                if (playerMovement != null)
+                {
+                    playerMovement.playerHealth -= FireballSpell.damage;
+                    playerMovement.TakeDamageFromEnemy();
+                }
+                return;
+            }
+            
             Destroy(gameObject);
         }
     }

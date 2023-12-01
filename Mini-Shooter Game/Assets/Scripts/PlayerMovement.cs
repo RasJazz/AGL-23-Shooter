@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -17,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
 
     [HideInInspector] public float walkSpeed;
     [HideInInspector] public float sprintSpeed;
+    [SerializeField] public float playerHealth;
 
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
@@ -41,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
         rb.freezeRotation = true;
 
         readyToJump = true;
+        playerHealth = 30.0f;
     }
 
     private void Update()
@@ -56,6 +55,8 @@ public class PlayerMovement : MonoBehaviour
             rb.drag = groundDrag;
         else
             rb.drag = 0;
+        
+        TakeDamageFromEnemy();
     }
 
     private void FixedUpdate()
@@ -116,5 +117,13 @@ public class PlayerMovement : MonoBehaviour
     private void ResetJump()
     {
         readyToJump = true;
+    }
+    
+    public void TakeDamageFromEnemy()
+    {
+        if (playerHealth <= 0)
+        {
+            Application.Quit();
+        }
     }
 }
