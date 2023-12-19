@@ -36,7 +36,6 @@ public class EnemyBase : MonoBehaviour
     [HideInInspector] public void TakeDamage(float health)
     { 
         // decreases health by damage amount
-        
         if (health <= 0) // if enemy is dead, destroy object
         {
             Destroy(gameObject);

@@ -155,7 +155,7 @@ Rigidbody:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_ImplicitCom: 1
+  m_ImplicitCom: 0
   m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 0
@@ -177,8 +177,9 @@ MonoBehaviour:
   target: {fileID: 0}
   initialChaseRange: 15
   leashRange: 30
-  health: 10
+  health: 20
   backUpDistance: 10
+  casterEnemy: {fileID: 1351403703376006982}
 --- !u!114 &8992187495759434139
 MonoBehaviour:
   m_ObjectHideFlags: 0
