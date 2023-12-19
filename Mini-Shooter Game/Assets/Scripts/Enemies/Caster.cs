@@ -31,7 +31,9 @@ public class Caster : EnemyBase
         Vector3 flatTargetPos = new Vector3(targetPos.x, casterPos.y, targetPos.z);
         
         distanceToTarget = Vector3.Distance(flatTargetPos, casterPos);
-        
+        // If distance to player is w/i chase range, spells are turned on
+        // If Caster enemy is not at target distance, approaches player until it is
+        // Else, Caster enemy is too close to Player and backs up
         if (distanceToTarget <= chaseRange)
         {
             _spellController.isActive = true; // spells are turned on
@@ -45,9 +47,7 @@ public class Caster : EnemyBase
             else
             {
                 Vector3 targetToCaster = casterPos - flatTargetPos;
-                Debug.DrawLine(flatTargetPos, casterPos, Color.red);
                 Vector3 backupPos = (targetToCaster.normalized * 10) + flatTargetPos;
-                Debug.DrawLine(casterPos, backupPos, Color.green);
                 _casterAI.SetDestination(backupPos);
                 _casterAI.stoppingDistance = 0;
             }
@@ -55,7 +55,7 @@ public class Caster : EnemyBase
         else
         {
             _spellController.isActive = false; // spells stop firing and chase range is reset to init
-            chaseRange = initialChaseRange;
+            chaseRange = initialChaseRange; // chase range reset
         }
     }
 }
